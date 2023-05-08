@@ -32,7 +32,7 @@ El **esquema general** de los documentos es bastante simple, contando solamente 
 - Implementar un cliente para tener una mejor comodidad.
 - Fixes varios.
 
-## IMPLEMENTCIÓN:
+## IMPLEMENTACIÓN:
 
 Si se desea utilizar esta API de forma local es necesario crear *(a nivel raíz)* un archivo **.env** con la siguiente propiedad:
 
