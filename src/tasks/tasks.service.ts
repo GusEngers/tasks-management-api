@@ -31,11 +31,6 @@ export class TasksService {
   }
 
   async findOne(id: string): Promise<Task> {
-    if (!isValidObjectId(id))
-      throw new HttpException(
-        'The id format is invalid',
-        HttpStatus.BAD_REQUEST,
-      );
     try {
       const task = await this.taskModel.findById(id).select('-__v');
       if (!task) throw new Error(`Task with id ${id} not found`);

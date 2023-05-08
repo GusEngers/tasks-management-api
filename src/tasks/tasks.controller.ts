@@ -18,19 +18,19 @@ export class TasksController {
 
   @Post()
   async create(@Body() createTaskDto: CreateTaskDto): Promise<string> {
-    const response = await this.tasksService.create(createTaskDto);
+    const response: string = await this.tasksService.create(createTaskDto);
     return response;
   }
 
   @Get()
   async findAll(): Promise<Task[]> {
-    const response = await this.tasksService.findAll();
+    const response: Task[] = await this.tasksService.findAll();
     return response;
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const response = await this.tasksService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<Task> {
+    const response: Task = await this.tasksService.findOne(id);
     return response;
   }
 
