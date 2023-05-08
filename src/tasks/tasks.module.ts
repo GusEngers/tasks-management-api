@@ -1,9 +1,14 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TasksController } from './tasks.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Task, TaskSchema } from './schema/task.schema';
-import { IdMiddleware } from './tasks.middleware';
+import { IdMiddleware, QueryMiddleware } from './tasks.middleware';
 
 @Module({
   imports: [
@@ -14,6 +19,10 @@ import { IdMiddleware } from './tasks.middleware';
 })
 export class TasksModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(IdMiddleware).forRoutes('tasks/:id');
+    consumer.apply(QueryMiddleware).forRoutes('tasks/filter');
+    consumer
+      .apply(IdMiddleware)
+      .exclude({ path: 'tasks/filter', method: RequestMethod.GET })
+      .forRoutes('tasks/:id');
   }
 }

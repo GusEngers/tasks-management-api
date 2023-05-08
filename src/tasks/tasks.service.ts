@@ -30,6 +30,13 @@ export class TasksService {
     }
   }
 
+  async filterAll(type: number): Promise<Task[]> {
+    const tasks: Task[] = await this.taskModel
+      .find({ status: type })
+      .select('-__v');
+    return tasks;
+  }
+
   async findOne(id: string): Promise<Task> {
     try {
       const task: Task = await this.taskModel.findById(id).select('-__v');
