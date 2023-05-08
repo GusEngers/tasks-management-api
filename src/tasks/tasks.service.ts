@@ -33,7 +33,7 @@ export class TasksService {
   async findOne(id: string): Promise<Task> {
     try {
       const task: Task = await this.taskModel.findById(id).select('-__v');
-      if (!task) throw new Error(`Task with id ${id} not found`);
+      if (!task) throw new Error(`Task with id ${id} not found!`);
       return task;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -45,14 +45,20 @@ export class TasksService {
       const task: Task = await this.taskModel
         .findByIdAndUpdate(id, updateTaskDto, { new: true })
         .select('-__v');
-      if (!task) throw new Error(`Task with id ${id} not found`);
+      if (!task) throw new Error(`Task with id ${id} not found!`);
       return task;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: string): Promise<string> {
+    try {
+      const task: Task = await this.taskModel.findByIdAndDelete(id);
+      if (!task) throw new Error(`Task with id ${id} not found!`);
+      return `Task '${task.name}' was successfully deleted!`;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
 }
