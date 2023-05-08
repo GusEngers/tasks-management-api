@@ -1,73 +1,43 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# TASKS-MANAGEMENT-API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**Tasks-Management-Api** es como indica su nombre una API para el manejo de tareas que realiza un usuario.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+La aplicación cuenta con las principales funciones **CRUD** permitiendo así crear, obtener, modificar y eliminar tareas. Todas estas tareas se alojarían en una base de datos en **MongoDB**.
 
-## Description
+El **esquema general** de los documentos es bastante simple, contando solamente con los siguientes elementos:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- El nombre de la tarea (name)
+- La descripción de la tarea (description)
+- El estado en el que se encuentra la tarea (status)
+    
 
-## Installation
+| **FIELD** | **TYPE** | **REQUIRED** |
+| --- | --- | --- |
+| name | String | true |
+| description | String | true |
+| status | Enum | true |
 
-```bash
-$ npm install
+
+## COMO **DATOS ADICIONALES**:
+
+- La iniciativa de este proyecto surge con la intención de aprender y poner en práctica mi estudio en NestJS, donde se busca crear un proyecto que además de servir como experiencia también sea útil a nivel personal.
+- Lograr acentar los conocimientos en el uso de **Middlewares**, **Controllers** y **Services** en NestJS.
+- Concretar una conexión con una base de datos en NestJS.
+    
+
+## FUTURAS ACTUALIZACIONES:
+
+- Crear proyectos de tareas por usuario, usando [User-Auth-Api](https://github.com/GusEngers/user-auth-api#readme) para autenticación y autorización.
+- Añadir nuevas fields (fecha de inicio y finalización, nivel de prioridad, usuarios realizando la tarea, etc).
+- Implementar un cliente para tener una mejor comodidad.
+- Fixes varios.
+
+## IMPLEMENTCIÓN:
+
+Si se desea utilizar esta API de forma local es necesario crear *(a nivel raíz)* un archivo **.env** con la siguiente propiedad:
+
+```javascript
+MONGO_URI=/* Dirección URI de MongoDB */
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Los scripts a ejecutarse se encuentran en el **package.json**
