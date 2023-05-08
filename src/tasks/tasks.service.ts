@@ -3,7 +3,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Task } from './schema/task.schema';
-import { Model, isValidObjectId } from 'mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class TasksService {
@@ -12,18 +12,18 @@ export class TasksService {
   async create(createTaskDto: CreateTaskDto): Promise<string> {
     const createdTask = new this.taskModel(createTaskDto);
     try {
-      const task = await createdTask
+      const task: string = await createdTask
         .save()
         .then(() => `Task ${createdTask.name} created!`);
       return task;
-    } catch (e) {
-      throw new HttpException(e.message, HttpStatus.CONFLICT);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.CONFLICT);
     }
   }
 
   async findAll(): Promise<Task[]> {
     try {
-      const tasks = await this.taskModel.find().select('-__v');
+      const tasks: Task[] = await this.taskModel.find().select('-__v');
       return tasks;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -32,7 +32,7 @@ export class TasksService {
 
   async findOne(id: string): Promise<Task> {
     try {
-      const task = await this.taskModel.findById(id).select('-__v');
+      const task: Task = await this.taskModel.findById(id).select('-__v');
       if (!task) throw new Error(`Task with id ${id} not found`);
       return task;
     } catch (error) {
@@ -40,8 +40,16 @@ export class TasksService {
     }
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
+    try {
+      const task: Task = await this.taskModel
+        .findByIdAndUpdate(id, updateTaskDto, { new: true })
+        .select('-__v');
+      if (!task) throw new Error(`Task with id ${id} not found`);
+      return task;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
 
   remove(id: number) {
